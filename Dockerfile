@@ -1,8 +1,8 @@
-FROM openjdk:8-jre-slim
-WORKDIR /home
-COPY /target/crud-0.0.1-SNAPSHOT.jar  crud-0.0.1-SNAPSHOT.jar 
+FROM adoptopenjdk:11-jre-hotspot
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} application.jar
 EXPOSE 5000
-ENTRYPOINT ["java", "-jar", "crud-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","/application.jar"]
 
 
 
