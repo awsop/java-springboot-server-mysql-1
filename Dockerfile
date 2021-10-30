@@ -1,8 +1,8 @@
-FROM maven:3.5-jdk-8 AS build
+FROM maven:3.8.3-jdk-8 AS build
 WORKDIR /app
 COPY src .
 COPY pom.xml .
-RUN mvn -f pom.xml clean package
+RUN mvn  package
 
 FROM openjdk:8-alpine
 COPY --from=build /src/app/target/*.jar app.jar
