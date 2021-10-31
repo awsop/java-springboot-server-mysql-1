@@ -1,14 +1,13 @@
-FROM maven:3.8.3-jdk-8 AS build
+
+# we will use openjdk 8 with alpine as it is a very small linux distro
+FROM openjdk:8-jre-alpine3.9
+
 WORKDIR /app
-COPY src .
-COPY pom.xml .
-RUN mvn  package
 
-FROM openjdk:8-alpine
-COPY --from=build /src/app/target/*.jar app.jar
-EXPOSE 5000
-ENTRYPOINT ["java","-jar","app.jar"]
+# copy the packaged jar file into our docker image
+COPY  ./target/crud-0.0.1-SNAPSHOT.jar  /app/crud-0.0.1-SNAPSHOT.jar
 
-
+# set the startup command to execute the jar
+ENTRYPOINT ["java", "-jar", "/app/crud-0.0.1-SNAPSHOT.jar"]
 
 
